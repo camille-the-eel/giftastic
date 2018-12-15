@@ -1,0 +1,74 @@
+//INITIAL ARRAY
+var topics = ["happy", "livid", "depressed", "excited", "what", "talk to the hand", "gimme"];
+
+//API CALL AND DUMPING JSON CONTENT INTO DIV FOR EACH BUTTON/CALL
+function displayInfo() {
+
+    var topic = $(this).attr("data-name");
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=2IEIoZt4UFtYQc6eWV76573S5jcC9zFH&limit=5";
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        var results = response.data;
+
+        for (var i = 0; i < results.length; i++) {
+            var gifDiv = $("<div class='gif'>");
+
+            var rating = results[i].rating;
+            var pRating = $("<p>").text("Rating: " + rating);
+            gifDiv.prepend(pRating);
+
+            var gifURL = results[i].images.original.url;
+            var runningGif = $("<img>").attr("src", gifURL).attr("data-state", "running");
+
+            // var stillURL = results[i].images.original_still.url;
+            // var stillGif = $("<img>").attr("src", stillURL).attr("data-state", "still");
+
+            gifDiv.append(runningGif);
+            $("#gif-view").prepend(gifDiv);
+
+            console.log(response);
+        }
+    });
+}
+
+
+$(".gif").on("click", function() {
+    var state = $(this).attr("data-state");
+
+    if (state === "still") {
+        $(this).attr("src", results[i].images.original.url);
+    } else {
+        $(this).attr("src", results[i].images.original_still.url);
+    }
+});
+
+//CREATING THE BUTTONS FROM THE ARRAY AND GIVING THEM ATTRIBUTES
+function renderButtons() {
+
+    $("#topics-view").empty();
+
+    for (var i = 0; i < topics.length; i++) {
+        var topicsButton = $("<button>");
+        topicsButton.addClass("topic");
+        topicsButton.attr("data-name", topics[i]);
+        topicsButton.text(topics[i]);
+        $("#topics-view").append(topicsButton);
+    }
+}
+
+//CLICK EVENT TO ADD BUTTON FROM USER INPUT
+$("#add-topic").on("click", function(event) {
+    event.preventDefault();
+    var topic = $("#topic-input").val().trim();
+    topics.push(topic);
+    renderButtons();
+});
+
+//CLICK FUNCTION TO DISPLAY THE JSON CONTENT
+$(document).on("click", ".topic", displayInfo);
+
+//INITIAL LOAD DISPLAY
+renderButtons();

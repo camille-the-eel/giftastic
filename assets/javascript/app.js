@@ -21,10 +21,10 @@ function displayInfo() {
             gifDiv.prepend(pRating);
 
             var gif = $("<img>");
-            gif.attr("data-animate", results[i].images.original.url);
-            gif.attr("data-still", results[i].images.original_still.url);
+            gif.attr("data-animate", results[i].images.fixed_width.url);
+            gif.attr("data-still", results[i].images.fixed_width_still.url);
             gif.attr("data-state", "still");
-            gif.attr("src", results[i].images.original_still.url);
+            gif.attr("src", results[i].images.fixed_width_still.url);
             gif.addClass("bothGif");
 
 
@@ -35,21 +35,6 @@ function displayInfo() {
         }
     });
 }
-
-
-$(document).on("click", ".bothGif", function() {
-
-    var state = $(this).attr("data-state");
-
-    if (state === "still") {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-    } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-    }
-    console.log("I clicked");
-});
 
 //CREATING THE BUTTONS FROM THE ARRAY AND GIVING THEM ATTRIBUTES
 function renderButtons() {
@@ -65,16 +50,35 @@ function renderButtons() {
     }
 }
 
-//CLICK EVENT TO ADD BUTTON FROM USER INPUT
-$("#add-topic").on("click", function(event) {
-    event.preventDefault();
-    var topic = $("#topic-input").val().trim();
-    topics.push(topic);
+$(document).ready(function() {
+
+    //CLICK EVENT TO ADD BUTTON FROM USER INPUT
+    $("#add-topic").on("click", function(event) {
+        event.preventDefault();
+        var topic = $("#topic-input").val().trim();
+        topics.push(topic);
+        renderButtons();
+    });
+
+    //CLICK FUNCTION TO DISPLAY THE JSON CONTENT
+    $(document).on("click", ".topic", displayInfo);
+
+    //CLICK FUNCTION TO PAUSE/PLAY
+    $(document).on("click", ".bothGif", function() {
+
+        var state = $(this).attr("data-state");
+
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+        console.log("I clicked");
+    });
+
+    //INITIAL LOAD DISPLAY
     renderButtons();
+
 });
-
-//CLICK FUNCTION TO DISPLAY THE JSON CONTENT
-$(document).on("click", ".topic", displayInfo);
-
-//INITIAL LOAD DISPLAY
-renderButtons();

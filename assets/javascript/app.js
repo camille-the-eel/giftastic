@@ -1,11 +1,25 @@
 //INITIAL ARRAY
 var topics = ["happy", "livid", "depressed", "excited", "what", "talk to the hand", "gimme"];
 
+//CREATING THE BUTTONS FROM THE ARRAY AND GIVING THEM ATTRIBUTES
+function renderButtons() {
+
+    $("#topics-view").empty();
+
+    for (var i = 0; i < topics.length; i++) {
+        var topicsButton = $("<button>");
+        topicsButton.addClass("topic");
+        topicsButton.attr("data-name", topics[i]);
+        topicsButton.text(topics[i]);
+        $("#topics-view").append(topicsButton);
+    }
+}
+
 //API CALL AND DUMPING JSON CONTENT INTO DIV FOR EACH BUTTON/CALL
 function displayInfo() {
 
     var topic = $(this).attr("data-name");
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=2IEIoZt4UFtYQc6eWV76573S5jcC9zFH&limit=5";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=2IEIoZt4UFtYQc6eWV76573S5jcC9zFH&limit=10";
 
     $.ajax({
         url: queryURL,
@@ -34,20 +48,6 @@ function displayInfo() {
             console.log(response);
         }
     });
-}
-
-//CREATING THE BUTTONS FROM THE ARRAY AND GIVING THEM ATTRIBUTES
-function renderButtons() {
-
-    $("#topics-view").empty();
-
-    for (var i = 0; i < topics.length; i++) {
-        var topicsButton = $("<button>");
-        topicsButton.addClass("topic");
-        topicsButton.attr("data-name", topics[i]);
-        topicsButton.text(topics[i]);
-        $("#topics-view").append(topicsButton);
-    }
 }
 
 $(document).ready(function() {

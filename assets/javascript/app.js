@@ -14,19 +14,21 @@ function displayInfo() {
         var results = response.data;
 
         for (var i = 0; i < results.length; i++) {
-            var gifDiv = $("<div class='gif'>");
+            var gifDiv = $("<div class='gifDiv'>");
 
             var rating = results[i].rating;
             var pRating = $("<p>").text("Rating: " + rating);
             gifDiv.prepend(pRating);
 
-            var gifURL = results[i].images.original.url;
-            var runningGif = $("<img>").attr("src", gifURL).attr("data-state", "running");
+            var gif = $("<img>");
+            gif.attr("data-animate", results[i].images.original.url);
+            gif.attr("data-still", results[i].images.original_still.url);
+            gif.attr("data-state", "still");
+            gif.attr("src", results[i].images.original_still.url);
+            gif.addClass("bothGif");
 
-            // var stillURL = results[i].images.original_still.url;
-            // var stillGif = $("<img>").attr("src", stillURL).attr("data-state", "still");
 
-            gifDiv.append(runningGif);
+            gifDiv.append(gif);
             $("#gif-view").prepend(gifDiv);
 
             console.log(response);
@@ -35,14 +37,18 @@ function displayInfo() {
 }
 
 
-$(".gif").on("click", function() {
+$(document).on("click", ".bothGif", function() {
+
     var state = $(this).attr("data-state");
 
     if (state === "still") {
-        $(this).attr("src", results[i].images.original.url);
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
     } else {
-        $(this).attr("src", results[i].images.original_still.url);
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
     }
+    console.log("I clicked");
 });
 
 //CREATING THE BUTTONS FROM THE ARRAY AND GIVING THEM ATTRIBUTES

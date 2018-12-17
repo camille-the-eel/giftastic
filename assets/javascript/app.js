@@ -8,7 +8,8 @@ function renderButtons() {
 
     for (var i = 0; i < topics.length; i++) {
         var topicsButton = $("<button>");
-        topicsButton.addClass("topic");
+        topicsButton.addClass("topic btn waves-effect");
+        topicsButton.attr("id", "button")
         topicsButton.attr("data-name", topics[i]);
         topicsButton.text(topics[i]);
         $("#topics-view").append(topicsButton);
@@ -28,22 +29,24 @@ function displayInfo() {
         var results = response.data;
 
         for (var i = 0; i < results.length; i++) {
-            var gifDiv = $("<div class='gifDiv'>");
+            var gifDiv = $("<div class='gifDiv card'>");
 
-            var rating = results[i].rating;
-            var pRating = $("<p>").text("Rating: " + rating);
-            gifDiv.prepend(pRating);
-
+            var cardGif = $("<div class='card-image'>");
             var gif = $("<img>");
-            gif.attr("data-animate", results[i].images.fixed_width.url);
-            gif.attr("data-still", results[i].images.fixed_width_still.url);
+            gif.attr("data-animate", results[i].images.original.url);
+            gif.attr("data-still", results[i].images.original_still.url);
             gif.attr("data-state", "still");
-            gif.attr("src", results[i].images.fixed_width_still.url);
+            gif.attr("src", results[i].images.original_still.url);
             gif.addClass("bothGif");
 
+            gifDiv.append(cardGif);
+            cardGif.append(gif);
 
-            gifDiv.append(gif);
-            $("#gif-view").prepend(gifDiv);
+            var rating = results[i].rating;
+            var pRating = $("<p class='rating card-action'>").text("Rating: " + rating);
+            gifDiv.append(pRating);
+            
+            $(".gif-view").prepend(gifDiv);
 
             console.log(response);
         }

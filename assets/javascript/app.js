@@ -20,7 +20,10 @@ function renderButtons() {
 function displayInfo() {
 
     var topic = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=2IEIoZt4UFtYQc6eWV76573S5jcC9zFH&limit=10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=2IEIoZt4UFtYQc6eWV76573S5jcC9zFH&limit=9";
+    
+    var count = 0;
+    var classArray = [".gif-view-1", ".gif-view-2", ".gif-view-3"];
 
     $.ajax({
         url: queryURL,
@@ -29,8 +32,14 @@ function displayInfo() {
         var results = response.data;
 
         for (var i = 0; i < results.length; i++) {
-            var gifDiv = $("<div class='gifDiv card'>");
 
+            var gifClass = $(classArray[count]);
+            count++;
+            if (count > 2) {
+                count = 0;
+            }
+
+            var card = $("<div class='gifDiv card'>");
             var cardGif = $("<div class='card-image'>");
             var gif = $("<img>");
             gif.attr("data-animate", results[i].images.original.url);
@@ -39,14 +48,15 @@ function displayInfo() {
             gif.attr("src", results[i].images.original_still.url);
             gif.addClass("bothGif");
 
-            gifDiv.append(cardGif);
+           
+            card.append(cardGif);
             cardGif.append(gif);
 
             var rating = results[i].rating;
             var pRating = $("<p class='rating card-action'>").text("Rating: " + rating);
-            gifDiv.append(pRating);
+            card.append(pRating);
             
-            $(".gif-view").prepend(gifDiv);
+            gifClass.prepend(card);
 
             console.log(response);
         }
@@ -85,3 +95,12 @@ $(document).ready(function() {
     renderButtons();
 
 });
+
+
+// var gifDiv3 = $("<div class='gifDiv card'>");
+
+// var gifCol = $("<div class='col m4'>");
+
+// var gifDiv1 = $(".gif-view-1");
+// var gifDiv2 = $(".gif-view-2");
+// var gifDiv3 = $(".gif-view-3");

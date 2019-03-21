@@ -1,4 +1,4 @@
-# giftastic
+# Giftastic
 
 View gifs of any topic of your choice on a dynamic web page that utilizes the GIPHY API.
 

@@ -79,6 +79,7 @@ $(document).ready(function() {
 
         topics.push(topic);
         renderButtons();
+        $("#topic-input").val("");
     });
 
     //CLICK FUNCTION TO DISPLAY THE JSON CONTENT

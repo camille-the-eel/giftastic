@@ -2,7 +2,7 @@
 
 View gifs of any topic of your choice on a dynamic web page that utilizes the GIPHY API.
 
-On page load, there are several preset buttons for the user to chose from to display. Upon clicking, each button will append to the top of the page with twelve gif stills of it's respective topic. Every gif is also captioned with it's rating (G, PG, PG-13, etc).
+On page load, there are several preset buttons for the user to chose from to display. Upon clicking, each button will append to the top of the page, twelve gif stills of it's respective topic. Every gif is also captioned with it's rating (G, PG, PG-13, etc).
 
 Simply click anywhere on the image to animate the gif stills. Once animated, the user can click again to return the gif to a still state.
 

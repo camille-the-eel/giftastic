@@ -68,7 +68,15 @@ $(document).ready(function() {
     //CLICK EVENT TO ADD BUTTON FROM USER INPUT
     $("#add-topic").on("click", function(event) {
         event.preventDefault();
+
         var topic = $("#topic-input").val().trim();
+
+        //VALIDATION FOR EMPTY FIELD
+        if (topic === null || topic === "") {
+            alert("Please Fill In Required Field Before Adding");
+            return false
+        }
+        
         topics.push(topic);
         renderButtons();
     });
@@ -95,12 +103,3 @@ $(document).ready(function() {
     renderButtons();
 
 });
-
-
-// var gifDiv3 = $("<div class='gifDiv card'>");
-
-// var gifCol = $("<div class='col m4'>");
-
-// var gifDiv1 = $(".gif-view-1");
-// var gifDiv2 = $(".gif-view-2");
-// var gifDiv3 = $(".gif-view-3");

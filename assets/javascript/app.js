@@ -53,7 +53,8 @@ function displayInfo() {
             cardGif.append(gif);
 
             var rating = results[i].rating;
-            var pRating = $("<p class='rating card-action'>").text("Rating: " + rating);
+            var uppRating = rating.toUpperCase();
+            var pRating = $("<p class='rating card-action'>").text("RATING: " + uppRating);
             card.append(pRating);
             
             gifClass.prepend(card);

@@ -20,7 +20,7 @@ function renderButtons() {
 function displayInfo() {
 
     var topic = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=2IEIoZt4UFtYQc6eWV76573S5jcC9zFH&limit=9";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=2IEIoZt4UFtYQc6eWV76573S5jcC9zFH&limit=12";
     
     var count = 0;
     var classArray = [".gif-view-1", ".gif-view-2", ".gif-view-3"];
@@ -76,7 +76,7 @@ $(document).ready(function() {
             alert("Please Fill In Required Field Before Adding");
             return false
         }
-        
+
         topics.push(topic);
         renderButtons();
     });

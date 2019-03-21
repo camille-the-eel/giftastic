@@ -26,4 +26,6 @@ To add a new button, users can fill out the input field and submit their topic. 
 
 ![](giphy1.gif)
 
+=======================================================================================
+
 ![](giphy2.gif)
